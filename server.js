@@ -12,9 +12,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Initialize Twilio Client
 const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-// ==========================================
-// 🛠️ SMS SERVICE (Reusable Function)
-// ==========================================
+//  SMS SERVICE (Reusable Function)
+
 const sendSmsToVerifiedNumbers = async (messageText) => {
     // Load both numbers from .env and filter out empty values
     const targetNumbers = [
@@ -47,9 +46,9 @@ const sendSmsToVerifiedNumbers = async (messageText) => {
 };
 
 
-// ==========================================
-// 🔒 SECURITY MIDDLEWARE FOR NEW API
-// ==========================================
+
+// SECURITY MIDDLEWARE FOR NEW API
+
 const verifyApiKey = (req, res, next) => {
     // Check for API key in headers
     const apiKey = req.headers['x-api-key'];
@@ -64,9 +63,9 @@ const verifyApiKey = (req, res, next) => {
 };
 
 
-// ==========================================
-// 🚀 NEW API: Send SMS to Both Numbers
-// ==========================================
+
+//  NEW API: Send SMS to Both Numbers
+
 app.post('/api/send-sms', verifyApiKey, async (req, res) => {
     console.log(`📥 [API REQUEST] POST /api/send-sms triggered`);
     
@@ -89,9 +88,9 @@ app.post('/api/send-sms', verifyApiKey, async (req, res) => {
 });
 
 
-// ==========================================
-// 💳 PREVIOUS FUNCTIONALITY: PayHere Payment
-// ==========================================
+
+// PREVIOUS FUNCTIONALITY: PayHere Payment
+
 
 // 1. Endpoint to generate payment hash
 app.get('/api/create-payment', (req, res) => {
@@ -174,9 +173,9 @@ app.post('/notify', async (req, res) => {
     res.status(200).send();
 });
 
-// ==========================================
-// 🌍 SERVER INITIALIZATION
-// ==========================================
+
+// SERVER INITIALIZATION
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`=============================================`);
